@@ -1,4 +1,4 @@
-# Tema 1 — Fundamentos de Bases de Datos (Resumen para repaso)
+-# Tema 1 — Fundamentos de Bases de Datos (Resumen para repaso)
 
 > [!info] Cómo usar este resumen
 > Este documento condensa los conceptos esenciales del Tema 1. Cada sección termina con la idea clave en una frase. Al final tienes una tabla de autoevaluación: si sabes responder a todas las preguntas, dominas el tema.
@@ -13,6 +13,7 @@
 6. Ventajas del enfoque de base de datos
 7. Cuándo NO usar una base de datos
 
+> Apunte prueba
 ---
 
 ## 1. Conceptos básicos

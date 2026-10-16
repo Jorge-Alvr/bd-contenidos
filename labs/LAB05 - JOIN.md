@@ -21,7 +21,8 @@ Escribe una consulta para obtener el nombre del departamento, su director, su fe
 
 Solución:
 ```sql
-
+SELECT nombre, director, fechaIngresoDirector as fecha, max(strftime("%m",fechaIngresoDirector)) as mes
+From DEPARTAMENTO
 ```
 
 Tabla resultado:
@@ -170,7 +171,11 @@ Tabla resultado:
 Escribe una consulta que devuelva el nombre de cada proyecto (nombre_proyecto) y el total de horas trabajadas en cada uno (total_horas_dedicadas), ordena los resultados por las horas trabajabas empezando por el de mayor horas. 
 
 ```sql
-
+SELECT P.nombre as nombre_proyecto, sum(T.horas) as total_horas_dedicadas
+From PROYECTO P
+INNER JOIN TRABAJA_EN T ON P.numero = T.proyecto 
+group by numero
+order by total_horas_dedicadas desc
 ```
 
 Tabla resultado:
@@ -259,7 +264,15 @@ Escribe una consulta que devuelva el nombre (nombre_empleado) y apellido1 de emp
 
 Solución:
 
-```sql
+```sqlSELECT 
+	E.nombre as nombre_empleado, 
+	E.apellido1, 
+	P.nombre as nombre_proyecto, 
+	P.ubicacion
+From EMPLEADO E 
+INNER JOIN TRABAJA_EN T ON E.dni=T.empleado
+INNER JOIN PROYECTO P ON T.proyecto=P.numero
+order by nombre_empleado
 
 ```
 
@@ -320,7 +333,14 @@ Tabla resultado:
 Escribe una consulta que devuelva los empleados que ganan entre 2000 y 10000 euros menos que su supervisor directo. Las columnas resultado deben ser: nombre_empleado, sueldo_empleado, nombre_supervisor y sueldo_supervisor.
 
 ```sql
-
+SELECT 
+	E.nombre as nombre_empleado,
+	E.sueldo as sueldo_empleado,
+	S.nombre as nombre_supervisor,
+	S.sueldo as sueldo_supervisor
+FROM EMPLEADO E
+INNER JOIN EMPLEADO S ON E.supervisor=S.dni
+WHERE (sueldo_supervisor-sueldo_empleado) between 2000 and 10000;
 ```
 
 Tabla resultado:
@@ -486,7 +506,14 @@ INSERT INTO Proyecto VALUES ('ProductoGTP',6,'Madrid',5);
 
 Solución:
 ```sql
-
+SELECT 
+	P.nombre as nombre_proyecto,
+	E.nombre as nombre_empleado,
+	T.horas
+FROM  PROYECTO P 
+LEFT JOIN TRABAJA_EN T ON P.numero=T.proyecto
+LEFT JOIN EMPLEADO E ON T.empleado=E.dni
+order by nombre_proyecto, nombre_empleado
 ```
 
 Tabla resultado:
@@ -617,7 +644,14 @@ Obtener un listado con el nombre completo de los empleados que **NO** tienen nin
 
 Solución:
 ```sql
-
+SELECT 
+	E.nombre,
+	E.apellido1,
+	E.apellido2
+FROM EMPLEADO E
+LEFT JOIN FAMILIAR F ON E.dni=F.empleado 
+WHERE F.empleado is null
+	
 ```
 
 Tabla resultado:
@@ -787,7 +821,15 @@ Escribe una consulta que devuelva para cada departamento su nombre (nombre_depar
 Solución:
 
 ```sql
-
+SELECT 
+	D.nombre as nombre_departamento,
+	count (DISTINCT P.numero) as num_proyectos,
+	sum (T.horas) as total_horas_dedicadas
+FROM DEPARTAMENTO D	
+LEFT JOIN PROYECTO P ON D.numero = P.dpto
+LEFT JOIN TRABAJA_EN T ON P.numero = T.proyecto
+GROUP BY D.nombre
+ORDER BY T.horas desc
 ```
 
 Tabla resultado:

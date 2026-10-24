@@ -32,16 +32,28 @@ La dirección de la empresa necesita un informe completo sobre la situación de 
 
 Solución:
 ```sql
-
+SELECT 
+	D.nombre as nombre_departamento,
+	E1.nombre || " " || E1.apellido1 as nombre_director,
+	count(distinct E2.dni) as num_empleados,
+	count(distinct P.numero) as num_proyectos
+	
+	
+FROM DEPARTAMENTO D 
+INNER JOIN EMPLEADO E1 ON D.director=E1.dni
+LEFT JOIN EMPLEADO E2 ON D.numero=E2.dpto AND D.director != E2.dni
+LEFT JOIN PROYECTO P ON D.numero=P.dpto
+GROUP By D.nombre 
+Order by num_empleados desc
 ```
 
 Tabla resultado:
 
-| nombre_departamento | nombre_director | num_empleados | num_proyectos | 
-| ------------------- | --------------- | ------------- | ------------- |
-| Investigación       | Alberto Campos  | 3             | 3             |
-| Administración      | Juana Sáinz     | 2             | 2             |
-| Sede Central        | Eduardo Ochoa   | 0             | 1             |
+| nombre_departamento | nombre_director | num_empleados | num_proyectos |     |
+| ------------------- | --------------- | ------------- | ------------- | --- |
+| Investigación       | Alberto Campos  | 3             | 3             |     |
+| Administración      | Juana Sáinz     | 2             | 2             |     |
+| Sede Central        | Eduardo Ochoa   | 0             | 1             |     |
 
 ---
 ## Subconsultas
@@ -176,6 +188,13 @@ Escribe una consulta que muestre los nombres de los departamentos cuyo sueldo me
 
 Solución:
 ```sql
+SELECT
+ D.nombre,
+ AVG(E.sueldo) AS sueldoMedio
+FROM EMPLEADO E INNER JOIN DEPARTAMENTO D ON (E.dpto = D.numero)
+GROUP BY D.numero, D.nombre
+HAVING AVG(E.sueldo) > ( SELECT AVG(Sueldo)
+						 FROM EMPLEADO);
 
 ```
 
@@ -291,7 +310,15 @@ Escribe una consulta que liste el nombre y apellido de los empleados que trabaja
 
 Solución:
 ```sql
+SELECT Distinct
+	E.nombre,
+	E.apellido1
+FROM EMPLEADO E	
+INNER JOIN TRABAJA_EN T ON T.empleado = E.dni
+where T.proyecto IN (SELECT numero FROM PROYECTO P
+where P.ubicacion = 'Madrid')
 
+ORDER BY E.apellido1, E.nombre
 ```
 
 Tabla resultado:
@@ -431,7 +458,14 @@ Escribe una consulta que liste el el nombre y apellido de cada empleado junto co
 
 Solución:
 ```sql
-
+SELECT 
+	e1.nombre,
+	e1.apellido1,
+	e1.sueldo - (SELECT AVG(e2.sueldo) FROM EMPLEADO e2
+    WHERE e2.dpto = e1.dpto) as diferenciaSueldoMedio
+	
+FROM EMPLEADO e1	
+ORDER BY diferenciaSueldoMedio desc
 ```
 
 Tabla resultado:
@@ -518,18 +552,27 @@ Escribe una consulta que liste el nombre de los proyectos donde trabaja al menos
 
 Solución:
 ```sql
-
+SELECT nombre
+FROM PROYECTO
+WHERE numero IN (
+    SELECT T.proyecto
+    FROM TRABAJA_EN T
+    JOIN EMPLEADO E ON T.empleado = E.dni
+    JOIN DEPARTAMENTO D ON E.dpto = D.numero
+    WHERE D.nombre = 'Investigación'
+)
+ORDER BY nombre;
 ```
 
 Tabla resultado:
 
-| nombre         | 
-| -------------- |
-| Computación    |
-| ProductoX      |
-| ProductoY      |
-| ProductoZ      |
-| Reorganización |
+| nombre         |     |
+| -------------- | --- |
+| Computación    |     |
+| ProductoX      |     |
+| ProductoY      |     |
+| ProductoZ      |     |
+| Reorganización |     |
 
 ---
 
@@ -607,6 +650,20 @@ SELECT nombre, apellido1, sueldo FROM EMPLEADO;
 
 Solución:
 ```sql
+UPDATE EMPLEADO 
+SET sueldo = 1.20*sueldoWHERE dni IN(
+  SELECT empleado
+  FROM TRABAJA_EN
+  GROUP BY empleado
+  HAVING SUM(horas)>(
+	SELECT AVG (total_horas)
+	FROM(
+	  SELECT SUM(horas) as total_horas
+	  FROM TRABAJA_EN
+	  GROUP BY empleado
+	  )
+	)
+  )
 
 ```
 
@@ -738,7 +795,26 @@ Escribe una consulta que devuelva el `dni` de los empleados que no tienen ningú
 
 Solución:
 ```sql
+SELECT dni
+FROM EMPLEADO
+WHERE dni NOT IN(
+  SELECT empleado
+  FROM FAMILIAR WHERE empleado IS NOT NULL
+  )
+  
+  
+  
+SELECT E.dni
+FROM EMPLEADO E
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM FAMILIAR F 
+  WHERE F.empleado=E.dni
+  )  
+  
 
+  
+  
 ```
 
 Tabla resultado:
@@ -770,12 +846,12 @@ Muchas consultas pueden definirse tanto con subconsultas como mediante JOINs, ob
 
 ### **JOINs**
 
-| **Ventajas** | **Inconvenientes** |
-|--------------|-------------------|
-| **Rendimiento superior**: Más eficientes, especialmente con índices adecuados | **Complejidad visual**: Con muchas tablas, la sintaxis puede volverse difícil de leer |
-| **Mejor optimización**: Los motores de bases de datos están altamente optimizados para JOINs | **Riesgo de duplicados**: Un JOIN incorrecto puede multiplicar filas inesperadamente |
-| **Flexibilidad**: Permiten combinar múltiples columnas de diferentes tablas fácilmente | **Curva de aprendizaje**: Los diferentes tipos de JOIN (INNER, LEFT, RIGHT, FULL) requieren comprensión clara |
-| **Estándar para relaciones**: Son la forma natural de trabajar con bases de datos relacionales | |
+| **Ventajas**                                                                                   | **Inconvenientes**                                                                                            |
+| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **Rendimiento superior**: Más eficientes, especialmente con índices adecuados                  | **Complejidad visual**: Con muchas tablas, la sintaxis puede volverse difícil de leer                         |
+| **Mejor optimización**: Los motores de bases de datos están altamente optimizados para JOINs   | **Riesgo de duplicados**: Un JOIN incorrecto puede multiplicar filas inesperadamente                          |
+| **Flexibilidad**: Permiten combinar múltiples columnas de diferentes tablas fácilmente         | **Curva de aprendizaje**: Los diferentes tipos de JOIN (INNER, LEFT, RIGHT, FULL) requieren comprensión clara |
+| **Estándar para relaciones**: Son la forma natural de trabajar con bases de datos relacionales |                                                                                                               |
 
 ---
 
@@ -796,7 +872,20 @@ WHERE P.ubicacion = 'Madrid';
 
 Solución:
 ```sql
-
+SELECT DISTINCT
+  nombre,
+  apellido1
+FROM EMPLEADO E 
+WHERE dni IN(
+  SELECT empleado
+  FROM TRABAJA_EN
+  WHERE proyecto IN (
+	SELECT numero
+	FROM PROYECTO
+	WHERE ubicacion= 'Madrid'
+	)
+  )
+ ORDER BY apellido1, nombre 
 ```
 
 Tabla resultado:

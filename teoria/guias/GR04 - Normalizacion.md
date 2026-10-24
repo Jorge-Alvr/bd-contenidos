@@ -20,12 +20,12 @@ Ideas clave:
 
 Antes de la teoría formal, cuatro reglas informales que debe cumplir todo buen esquema. Cada una responde a un problema concreto:
 
-| # | Directriz | Problema que evita |
-|---|-----------|--------------------|
-| 1 | Cada relación representa **una sola entidad** | Semántica confusa |
-| 2 | Cada hecho se almacena **una sola vez** | Redundancia y anomalías |
-| 3 | **Minimizar los valores NULL** | Desperdicio, errores en agregaciones |
-| 4 | Los JOIN no deben crear **tuplas espurias** | Datos falsos |
+| #   | Directriz                                     | Problema que evita                   |
+| --- | --------------------------------------------- | ------------------------------------ |
+| 1   | Cada relación representa **una sola entidad** | Semántica confusa                    |
+| 2   | Cada hecho se almacena **una sola vez**       | Redundancia y anomalías              |
+| 3   | **Minimizar los valores NULL**                | Desperdicio, errores en agregaciones |
+| 4   | Los JOIN no deben crear **tuplas espurias**   | Datos falsos                         |
 
 ### Directriz 1 — Semántica clara de los atributos
 

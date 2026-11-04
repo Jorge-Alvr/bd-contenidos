@@ -1,3 +1,4 @@
+
 # JOIN
 
 ## Objetivos
@@ -264,7 +265,8 @@ Escribe una consulta que devuelva el nombre (nombre_empleado) y apellido1 de emp
 
 Solución:
 
-```sqlSELECT 
+```sql
+SELECT 
 	E.nombre as nombre_empleado, 
 	E.apellido1, 
 	P.nombre as nombre_proyecto, 

@@ -243,7 +243,7 @@ Decimos "primera versión" porque todavía no hemos visto las **entidades débil
 Abre el archivo ModeloEstudioVideojuegos.erd, que será donde vamos a ir modelando el enunciado.
 
 Vamos a comenzar centrándonos en los 2 primeros párrafos:
-
+![[Pasted image 20261104222527.png]]
 ---
 En un rincón de Cáceres, entre encinas y conexiones de fibra óptica, ha nacido **Dehesa Pixel Studios**, un estudio de videojuegos que empezó con tres amigos y una pizza fría y que hoy ya no cabe en una hoja de cálculo. Su fundadora, Marta, está harta de perder la cuenta de quién trabaja en qué, así que te ha pedido que diseñes una base de datos para organizar el estudio.
 
@@ -281,7 +281,7 @@ De nuevo, vamos a fijarnos solo en las entidades. Este párrafo nos da dos más:
 
 Escribe el texto BigER necesario para modelar los videojuegos y los niveles, de manera que nuestro diagrama ER tenga estas dos nuevas entidades tal y como se muestran en la siguiente imagen:
 ![](../imgs/BD%20-%20BigER%20Estudio%20Videojuegos%20parte%202.png)
-
+![[Pasted image 20261104223117.png]]![[Pasted image 20261104223117 1.png]]
 ---
 ### Ejercicio 04 - Enunciado ER 00A Estudio Videojuegos (3)
 
@@ -293,7 +293,7 @@ Vamos a modelar las relaciones del segundo párrafo, entre Desarrollador y Equip
 Fíjate en que entre las mismas dos entidades hay **dos relaciones distintas**: es perfectamente válido, porque cada una representa un hecho diferente del negocio.
 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente cada relación, y comprueba con la regla de lectura que cada cardinalidad dice lo mismo que el enunciado.
-
+![[Pasted image 20261104223753.png]]
 ---
 ### Ejercicio 05 - Enunciado ER 00A Estudio Videojuegos (4)
 
@@ -303,7 +303,7 @@ Vamos ahora con las relaciones del tercer párrafo:
 - En segundo lugar, la relación **forma_parte_de** entre Nivel y Videojuego. Por lo que nos dice el enunciado, un Nivel forma parte de exactamente un Videojuego, mientras que un Videojuego puede no tener ningún Nivel todavía o tener muchos.
 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente cada relación.
-
+![[Pasted image 20261104224138.png]]
 ---
 
 ### Ejercicio 06 - Enunciado ER 00A Estudio Videojuegos (5)
@@ -321,7 +321,7 @@ Este párrafo nos da dos relaciones más:
 - La relación **mentoriza** de Desarrollador consigo mismo. Es una **relación recursiva**, así que necesita **roles**: un desarrollador actúa como "Mentor" y otro como "Mentorizado". Por lo que nos dice el enunciado, un Desarrollador tiene como mucho un Mentor, y un Mentor puede mentorizar a ninguno o a muchos Desarrolladores.
 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente cada relación.
-
+![[Pasted image 20261104224746.png]]
 ---
 ### Fin
 

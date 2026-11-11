@@ -274,6 +274,24 @@ Escribe una consulta que devuelva el nombre y apellido1 de los empleados que **n
 Solución:
 
 ```sql
+with sin_supervision as(
+  SELECT dni
+  FROM EMPLEADO
+  EXCEPT 
+  SELECT supervisor
+  FROM EMPLEADO
+  EXCEPT 
+  SELECT director
+  FROM DEPARTAMENTO
+  EXCEPT 
+  SELECT empleado
+  FROM FAMILIAR 
+ 
+)
+
+SELECT E.nombre, E.apellido1
+FROM EMPLEADO E INNER JOIN sin_supervision S ON E.dni=S.dni
+ORDER BY E.apellido1
 
 ```
 

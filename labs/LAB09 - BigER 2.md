@@ -135,7 +135,7 @@ Con todo esto, en nuestro diagrama ER tendremos que:
 2.- Convertir **forma_parte_de** en **relación débil**. Al ser una relación débil, el lado de Videojuego ya era `[1..1]`, como debe ser; la única duda es la cardinalidad del lado de Nivel, y sigue igual que antes: un videojuego puede no tener niveles todavía.
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VS Code.
-
+![[Pasted image 20261112103152.png]]![[Pasted image 20261112103212.png]]
 ---
 ### Ejercicio 02 - Enunciado ER 00A Estudio Videojuegos (7)
 
@@ -192,7 +192,7 @@ Con esta información ya podemos modelar las dos primeras entidades mencionadas,
 
 ![](../imgs/BD%20-%20BigER%20Enunciado%202%20ER%20The%20Expanse%20v1%20simplificado%20Lab09%20parte%201.png)
 
-
+![[Pasted image 20261112104525.png]]
 ---
 
 ### Ejercicio 04 - Enunciado ER 02 The Expanse Simplificado  (2)
@@ -227,7 +227,7 @@ En resumen, Cargamento y Vuelo no son entidades fuertes y las modelaremos despu�
 Escribe el texto BigER necesario para modelarlas de manera que nuestro diagrama ER tenga estas dos nuevas entidades tal y como se muestran en la siguiente imagen:
 
 ![](../imgs/BD%20-%20BigER%20Enunciado%202%20ER%20The%20Expanse%20v1%20simplificado%20Lab09%20parte%202.png)
-
+![[Pasted image 20261112105044.png]]
 ---
 ### Ejercicio 05 - Enunciado ER 02 The Expanse Simplificado  (3)
 
@@ -238,7 +238,7 @@ Vamos a modelar entre las entidades que tenemos hasta ahora alguna de las relaci
 	- Por último, vamos a modelar la relación **asignada_a** entre Nave_Espacial y Planeta. Por lo que nos dice el enunciado, una instancia de Nave_Espacial solo puede estar asociada a un planeta mientras que una instancia de Planeta puede no tener ninguna Nave_Espacial o tener muchas.
 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VS Code. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente cada relación.
-
+![[Pasted image 20261112105730.png]]
 ---
 ### Ejercicio 06 - Enunciado ER 02 The Expanse Simplificado  (4)
 
@@ -259,7 +259,7 @@ Con todo esto, en nuestro diagrama ER tendremos que:
 2.- Añadir la **relación débil** **realizado_por** entre Vuelo y Nave_Espacial. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD  Naves que todavía no hayan realizado vuelos y tiene sentido que sí tengamos dado que un Planeta cada vez que reciba una Nave nueva esta todavía no habrá volado.
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VS Code. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
-
+![[Pasted image 20261112110517.png]]
 ---
 
 ### Ejercicio 07 - Enunciado ER 02 The Expanse Simplificado  (5)
@@ -269,7 +269,7 @@ Ahora que tenemos la entidad débil Vuelo, podemos acabar de modelar el resto de
 	- En segundo lugar, vamos a modelar la relación **destino_de** entre Vuelo y Centro. Por lo que nos dice el enunciado, podemos entender que puede haber todavía algún Centro que no haya sido destino de ningún Vuelo, pero un Vuelo siempre debe tener un Centro de Destino (vamos a suponer que un Vuelo no tiene ningún incidente que le haya impedido alcanzar su destino).
 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VS Code. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente cada relación.
-
+![[Pasted image 20261112110502.png]]
 ---
 
 ### Ejercicio 08 - Enunciado ER 02 The Expanse Simplificado  (6)
@@ -289,7 +289,7 @@ Con todo esto, en nuestro diagrama ER tendremos que:
 2.- Añadir la **relación débil** **empaquetado_en** entre Cargamento y Centro. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Centro que todavía no haya tenido un Cargamento y tiene sentido que sí dado que un Centro puede estar recién construido sin haber encontrado ni extraído ningún mineral.
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VS Code. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
-
+![[Pasted image 20261112110943.png]]
 ---
 ### Ejercicio 09 - Enunciado ER 02 The Expanse Simplificado  (7)
 
@@ -298,7 +298,7 @@ Ahora que tenemos la entidad débil Cargamento, podemos acabar de modelar el res
 	- En segundo lugar, vamos a modelar la relación **transportado_en** entre Cargamento y Vuelo. Por lo que nos dice el enunciado, puede que haya cargamentos que todavía no hayan sido transportados pero los vuelos, al menos, transportarán un cargamento cada vez que se producen.
 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VS Code. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente cada relación.
-
+![[Pasted image 20261112111328.png]]
 ---
 ### Ejercicio 10 - Enunciado ER 02 The Expanse Simplificado (8)
 
@@ -332,7 +332,7 @@ Con todo esto, en nuestro diagrama ER tendremos que:
 3.- Añadir la **relación débil** **incluido_en** entre Historico_Extraccion y Mineral. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Mineral que todavía no haya estado incluido en ninguna extracción de ningún Centro y tiene sentido que sí.
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VS Code. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
-
+![[Pasted image 20261112112006.png]]
 ---
 ### Fin
 
